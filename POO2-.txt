@@ -1,0 +1,183 @@
+#include<iostream>
+
+ using namespace std;
+ 
+ class Monom
+ 
+ {
+    public:
+    
+    int grad;
+    float coef;
+    
+    public:
+    
+    Monom()
+    
+    {
+        grad=0;
+        coef=0;
+    }
+    Monom(float coeficientul, int gradul)
+    
+    {
+        coef=coeficientul;
+        grad=gradul;
+    }
+    
+    Monom (const Monom &x)
+    
+    {
+        grad=x.grad;
+        coef=x.coef;
+    }
+    
+    void SetGrad() 
+    {
+        int i;
+        cin>>i;
+        grad=i;
+    }
+    void SetCoef() 
+    {
+        int i;
+        cin>>i;
+        coef=i;
+    }
+    
+    int GetGrad() const
+    {
+        return grad;
+    }
+    
+    float GetCoef()
+    {
+        return coef;
+    }
+    
+    
+     Monom& operator=( Monom& m1);
+    
+    ~Monom()
+    
+    {
+        grad=-99999;
+        coef=0;
+    }
+    
+    friend ostream& operator<<(ostream& os, const Monom& m);
+    friend istream& operator>>(istream& os,  Monom& m);
+
+ };
+ 
+ istream& operator>>(istream& is,  Monom& m)
+ {
+     is>>m.grad>>m.coef;
+     return is;
+ }
+ 
+ ostream& operator<<(ostream& os, const Monom& m)
+ {  
+     
+     if (m.coef>0)
+     
+     {
+        os<<"+"<<m.coef<<"*x^"<<m.grad;
+        return os;
+     }
+     
+     else if(m.coef<0)
+     
+     {
+        os<<m.coef<<"*x^"<<m.grad;
+        return os;
+     }
+     
+     else
+     {
+        os<<0;
+        return os;
+     }
+     
+ }
+ 
+Monom& Monom::operator=( Monom& m1)
+{
+    return m1;
+}
+
+
+ 
+ class Polinom
+ 
+ {
+     public:
+     
+     int nr_monoame;
+     Monom m[100];
+     
+     public:
+     
+     Polinom(int numarul_monoamelor)
+                            
+                    
+     
+     {
+        nr_monoame = numarul_monoamelor;
+        int i;
+        for (i=0; i < nr_monoame; i++)
+        
+            {
+                float a;
+                int b;
+                cin>>a;
+                cin>>b;
+                m[i].coef=a;
+                m[i].grad=b;
+            }
+     }
+     
+     Polinom(Polinom& x)
+     
+     {
+        nr_monoame=x.nr_monoame;
+        int i;
+        for (i = 0; i < nr_monoame;i++)
+            m[i]=x.m[i];
+            
+     }
+     
+     ~Polinom()
+     
+     {
+        nr_monoame=0;
+     }
+     
+    void afisare(){
+        int i;
+        for(i = 0; i< nr_monoame;i++)
+        {   
+            
+            Monom m1(m[i].coef, m[i].grad);
+            cout<<m1;
+            
+        }
+    }
+     
+ };
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ int main()
+ { 
+  Polinom P(5);
+  P.afisare();
+
+ 
+  
+    
+ }
